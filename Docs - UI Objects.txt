@@ -1,0 +1,16 @@
+# This file documents the objects present in the UI
+
+# The four tick buttons
+radioButtonIgnMet
+radioButtonSed
+radioButtonLive
+radioButtonTest
+activeButtonGroup - The buttongroup containing Live and Test
+
+tableNameField
+tableNameCount - The number to the right of tableNameField
+
+masterPathField
+masterDatasetField
+masterDatasetDate
+masterDatasetCount

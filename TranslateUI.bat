@@ -1,0 +1,1 @@
+pyuic4 -x ImporterUI.ui -o ImporterUI.py

@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="/plugins/DataImporter" >
+     <file>icon.png</file>
+  </qresource>
+</RCC>

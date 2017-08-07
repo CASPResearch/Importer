@@ -1,0 +1,12 @@
+# Metadata file to support plugin recognition by QGIS
+
+[general]
+name=DataImporter
+qgisMinimumVersion=2.14
+description=Facilitate the importing of data from an external table or database into a QGIS table
+
+version=1
+author=Benjamin Knight
+email=bknight4125@gmail.com
+icon=icon.png
+
