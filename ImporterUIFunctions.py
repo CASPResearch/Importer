@@ -144,6 +144,35 @@ class UIFunctions(QtGui.QDialog):
                 ctypes.windll.user32.MessageBoxW(0, msg, u"Error", 0x0|0x10)
                 return
 
+        # Check if the layer is sedimentary or igneous
+        tableLithology = ""
+        feature = layer.getFeatures().next()
+        if tableType == "Samples":
+            cat = feature["LithologyCategory"]
+            tableLithology = self.lithologyCheck[cat]
+        else:
+            id = feature["SampleId"]
+
+            # Try the Igneous master
+            master = QgsMapLayerRegistry.instance().mapLayersByName(self.igneousSamples)
+            for mFeature in master.getFeatures():
+                if mFeature["SampleId"] == id: # We have a match
+                    cat = mFeature["LithologyCategory"]
+                    tableLithology = self.lithologyCheck[cat]
+            
+            # Try the Sedimentary master
+            if tableLithology == "":
+                master = QgsMapLayerRegistry.instance().mapLayersByName(self.sedimentarySamples)
+                for mFeature in master.getFeatures():
+                    if mFeature["SampleId"] == id:
+                        cat = mFeature["LithologyCategory"]
+                        tableLithology = self.lithologyCheck[cat]
+
+        if tableLithology == "":
+            print "Attempted to import a table with no lithology match"
+            ctypes.windll.user32.MessageBoxW(0, u"The import table did not contain or match a valid lithology", u"Error", 0x0|0x10)
+            return
+
         self.fillFields(layer)
 
         self.show()
