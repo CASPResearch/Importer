@@ -128,6 +128,7 @@ class UIFunctions(QtGui.QDialog):
             ctypes.windll.user32.MessageBoxW(0, u"Your table must contain a field named LithologyCategory, SummaryAge, or Laboratory", u"Error", 0x0|0x10)
             return
 
+        self.uidCheck(layer, tableType)
         # Check that sample IDs exist for importing subtables
         if tableType == "SummaryAges" or tableType == "SampleAnalyses":
             # Get the master table
@@ -149,6 +150,30 @@ class UIFunctions(QtGui.QDialog):
 
         self.show()
 
+    # Check that sample IDs exist for importing subtables
+    def uidCheck(self, layer, tableType):
+        if tableType == "SummaryAges" or tableType == "SampleAnalyses":
+            # Build an id list from both master samples tables
+            idList = []
+
+            master = QgsMapLayerRegistry.instance().mapLayersByName(self.igneousSamples)
+            if master:
+                for feature in master.getFeatures():
+                    idList.append(feature["SampleId"])
+
+            master = QgsMapLayerRegistry.instance().mapLayersByName(self.sedimentarySamples)
+            if master:
+                for feature in master.getFeatures():
+                    idList.append(feature["SampleId"])
+
+            # Iterate over features there to make a list
+            lines = layer.getFeatures()
+            for line in lines:
+                if line["SampleId"] in idList:
+                    print "Attempted to import a duplicate sample"
+                    msg = "A duplicate SampleId was found: " + line["SampleId"]
+                    ctypes.windll.user32.MessageBoxW(0, msg, u"Error", 0x0|0x10)
+                    return
     def fillFields(self, layer):
         print "fillFields called in UIFunctions"
 
