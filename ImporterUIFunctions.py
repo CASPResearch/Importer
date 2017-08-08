@@ -18,6 +18,10 @@ class UIFunctions(QtGui.QDialog):
         self.ui.setupUi(self)
         self.setupChecks()
 
+        # Set two strings used as layer names for the Samples tables
+        self.igneousSamples = "Igneous and metamorphic samples"
+        self.sedimentarySamples = "Sedimentary Samples"
+
     def setupChecks(self):
         self.tableTypeCheck = {
             "LithologyCategory":"Samples",
