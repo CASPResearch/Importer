@@ -133,22 +133,16 @@ class UIFunctions(QtGui.QDialog):
             return
 
         self.uidCheck(layer, tableType)
-        # Check that sample IDs exist for importing subtables
-        if tableType == "SummaryAges" or tableType == "SampleAnalyses":
-            # Get the master table
-            # iterate over features there to make a list
-            lines = layer.getFeatures()
-            for line in lines:
-                if line["SampleId"] in #master table list:
-                    #Throw error, we have a duplication
 
-        # Here is where we should check the list of headings
-        for field in layer.fields()
+        # Check the list of headings are all valid
+        for field in layer.fields():
             name = field.name()
-            if not name in self[tableType + "Fields"]
-                #WARN and exit
-
-        # Check if a subtable is sedimentary or igneous
+            handler = getattr(self, '{}'.format(tableType + "Fields"))
+            if not name in handler:
+                print "Invalid column heading detected"
+                msg = "Invalid column heading: " + name
+                ctypes.windll.user32.MessageBoxW(0, msg, u"Error", 0x0|0x10)
+                return
 
         self.fillFields(layer)
 
