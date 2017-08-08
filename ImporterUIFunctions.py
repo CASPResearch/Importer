@@ -24,6 +24,13 @@ class UIFunctions(QtGui.QDialog):
             "SummaryAge":"SummaryAges",
             "Laboratory":"SampleAnalyses"
         }
+        self.lithologyCheck = {
+            "Meta-igneous":"Ign",
+            "Igneous":"Ign",
+            "Metamorphic":"Ign",
+            "Meta-sedimentary":"Sed",
+            "Sedimenary":"Sed"
+        }
         self.SamplesFields = {
             "SampleId":True,
             "SampleNo":True,
@@ -66,6 +73,43 @@ class UIFunctions(QtGui.QDialog):
             "CASP_Sample":True,
             "Collector":True,
             "Project":True
+        }
+        self.SampleAnalysesFields = {
+            "AnalysisKey":True,
+            "SampleId":True,
+            "AnalysisNo":True,
+            "Mineral":True,
+            "Method_1":True,
+            "Method_2":True,
+            "NoOfGrains":True,
+            "PbcCorr":True,
+            "PbcCorrMethod":True,
+            "PbcCorrOther":True,
+            "Laboratory":True,
+            "PrimaryStd":True,
+            "ReferenceId":True,
+            "Comments":True,
+            "FirstReport":True
+        }
+        self.SummaryAgesFields = {
+            "SampleIdAge":True,
+            "SampleId":True,
+            "SummaryAge":True,
+            "SumAgeErrorMinus":True,
+            "SumAgeErrorPlus":True,
+            "AgeYearsMin":True,
+            "AgeYearsMax":True,
+            "Mineral":True,
+            "SumAgeMethod":True,
+            "NoOfGrainsUsed":True,
+            "MSWD":True,
+            "Probability":True,
+            "Interpretation":True,
+            "Comments":True,
+            "AnalysisNo1":True,
+            "AnalysisNo2":True,
+            "AnalysisNo3":True,
+            "FirstReport":True
         }
 
     def run(self, layer):
