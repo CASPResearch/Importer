@@ -201,6 +201,7 @@ class UIFunctions(QtGui.QDialog):
                     msg = "A duplicate SampleId was found: " + line["SampleId"]
                     ctypes.windll.user32.MessageBoxW(0, msg, u"Error", 0x0|0x10)
                     return
+
     def fillFields(self, layer):
         print "fillFields called in UIFunctions"
 
