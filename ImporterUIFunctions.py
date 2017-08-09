@@ -212,43 +212,48 @@ class UIFunctions(QtGui.QDialog):
                     return
 
     def fillFields(self, layer):
-        print "fillFields called in UIFunctions"
+        # Display Lithology and layer type
+        lith = getattr(self.ui, "radioButton" + layer.cat)
+        lith.setChecked(True)
 
-        # Set the checkboxes at the top to 'Master' to begin with
-        self.ui.radioButtonLive.setChecked(True)
+        lType = getattr(self.ui, "radioButton" + layer.tableType)
+        lType.setChecked(True)
 
-        # Get the layer name
-        layerName = layer.name()
-        self.ui.tableNameField.setText(layerName)
-
-        # Get the count of entries
-        count = layer.dataProvider().featureCount()
-        self.ui.tableNameCount.setText(str(count))
-
-        # Get the working directory
+        # Get the project directory
         dir = os.getcwd()
-        print "We found a path"
-        print dir
-        self.ui.masterPathField.setText(dir)
-    
-    # Called by the run function in ImporterMain to populate comboboxes with a list of relevent layers
-    def initLayerCombobox(self, combobox, default):
-         combobox.clear()
+        self.ui.projectPathField.setText(dir)
 
-         # Get the list of initialized map layers
-         reg = QgsMapLayerRegistry.instance()
+        # Handle the input layer
+        self.fillLayerRow(layer, "input")
 
-         # Loop over the map layers in the list and add each to the combobox
-         for (key, layer) in reg.mapLayers().iteritems():
-             if layer.type() == QgsMapLayer.RasterLayer or layer.type() == QgsMapLayer.VectorLayer: #This doesn't work in QGIS2.0. Can I do without?: and ( layer.usesProvider() and layer.providerKey() == 'gdal' ):
-                 combobox.addItem(layer.name(), key)
-         
-         # Check the box has entries, and select the default one
-         idx = combobox.findData(default)
-         if idx != -1:
-             combobox.setCurrentIndex(idx) 
-             
-    # Returns the value of the currently selected layer
-    def layerFromComboBox(self, combobox):
-        layerID = str(combobox.itemData(combobox.currentIndex()))
-        return QgsMapLayerRegistry.instance().mapLayer(layerID)
+        # Handle destination layers
+        dest = ""
+        master = ""
+        if layer.tableType == "Samples" or layer.tableType == "SampleAnalyses":
+            dest = QgsMapLayerRegistry.instance().mapLayersByName(layer.masterLayer)
+        else:
+            destName = getattr(self, layer.cat + layer.tableType + "Destination")
+            dest = QgsMapLayerRegistry.instance().mapLayersByName(destName)
+            master = QgsMapLayerRegistry.instance().mapLayersByName(layer.masterLayer)
+
+        self.fillLayerRow(dest, "destination")
+
+        if master:
+            self.fillLayerRow(master, "master")
+
+        # Handle the destination path
+        path = dest.dataProvider().dataSourceUri()
+        self.ui.destiationPathField.setText(path)
+
+        # Handle the destination preview
+        self.ui.destinationLPreviewField.setText(dest.name() + "_Preview")
+
+    # Fill a UI row with the layer name, and the feature count of that layer
+    def fillLayerRow(self, layer, prefix):
+        layerName = layer.name()
+        uiField = getattr(self.ui, prefix + "LayerField")
+        uiField.setText(layerName)
+
+        count = layer.dataProvider().featureCount()
+        uiCount = getattr(self.ui, prefix + "LayerCount")
+        uiCount.setText(str(count))
