@@ -1,0 +1,15 @@
+Master layer names must match the following:
+
+Igneous and metamorphic samples
+Sedimentary samples
+Igenous & metamorphic UPb raw data (Excel + Igneous and metamorphic samples)
+Igneous & metamorphic UPb summary ages (Igneous and metamorphic samples + IgneousMetamorphicSummaryAges)
+Sedimentary UPb raw data (Excel + Sedimentary samples)
+Sedimentary UPb summary ages (Sedimentary samples + SedimentarySummaryAges)
+
+IgenousMetamorphicAnalysisData
+SedimentaryAnalysisData
+IgneousMetamorphicSummaryAges 
+SedimentarySummaryAges
+IgneousMetamorphicAges (Excel raw input)
+SedimentaryAges (Excel raw input)

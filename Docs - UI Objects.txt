@@ -1,16 +1,32 @@
 # This file documents the objects present in the UI
 
-# The four tick buttons
-radioButtonIgnMet
-radioButtonSed
-radioButtonLive
-radioButtonTest
-activeButtonGroup - The buttongroup containing Live and Test
+# The radio buttons
+radioButtonigneous
+radioButtonsedimentary
+ignSedButtonGroup
 
-tableNameField
-tableNameCount - The number to the right of tableNameField
+radioButtonSamples
+radioButtonSummaryAges
+radioButtonSampleAnalyses
+radioButtonRawExcel
+dataButtonGroup
 
-masterPathField
-masterDatasetField
-masterDatasetDate
-masterDatasetCount
+# Paths
+projectPathField
+destinationPathField
+destinationBackupPathField
+masterBackupPatField
+
+# Layers
+inputLayerField
+destinationLayerField
+destinationPreviewField
+masterLayerField
+masterPreviewField
+
+# Counters
+inputLayerCount
+destinationLayerCount
+destinationPreviewCount
+masterLayerCount
+masterPreviewCount
