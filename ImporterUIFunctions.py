@@ -34,7 +34,8 @@ class UIFunctions(QtGui.QDialog):
         self.tableTypeCheck = {
             "LithologyCategory":"Samples",
             "SummaryAge":"SummaryAges",
-            "Laboratory":"SampleAnalyses"
+            "Laboratory":"SampleAnalyses",
+            "PreferredAge":"RawExcel"
         }
         self.lithologyCheck = {
             "Meta-igneous":"igneous",
