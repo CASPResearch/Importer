@@ -18,9 +18,17 @@ class UIFunctions(QtGui.QDialog):
         self.ui.setupUi(self)
         self.setupChecks()
 
-        # Set two strings used as layer names for the Samples tables
-        self.igneousSamples = "Igneous and metamorphic samples"
-        self.sedimentarySamples = "Sedimentary Samples"
+        # Set strings to be used as layer names indexes
+        self.igneousSamplesMaster = "Igneous and metamorphic samples"
+        self.sedimentarySamplesMaster = "Sedimentary Samples"
+        self.igneousSummaryAgesMaster = "IgneousMetamorphicSummaryAges"
+        self.igneousSampleAnalysesMaster = "IgenousMetamorphicAnalysisData"
+        self.sedimentarySummaryAgesMaster = "SedimentarySummaryAges"
+        self.sedimentarySampleAnalysesMaster = "SedimentaryAnalysisData"
+        self.igneousSummaryAgesDestination = "Igneous & metamorphic UPb summary ages"
+        self.igneousRawExcelDestination = "Igneous & metamorphic UPb raw data"
+        self.sedimentarySummaryAgesDestination = "Sedimentary UPb summary ages"
+        self.sedimentaryRawExcelDestination = "Sedimentary UPb raw data"
 
     def setupChecks(self):
         self.tableTypeCheck = {
@@ -29,11 +37,11 @@ class UIFunctions(QtGui.QDialog):
             "Laboratory":"SampleAnalyses"
         }
         self.lithologyCheck = {
-            "Meta-igneous":"Ign",
-            "Igneous":"Ign",
-            "Metamorphic":"Ign",
-            "Meta-sedimentary":"Sed",
-            "Sedimenary":"Sed"
+            "Meta-igneous":"igneous",
+            "Igneous":"igneous",
+            "Metamorphic":"igneous",
+            "Meta-sedimentary":"sedimentary",
+            "Sedimenary":"sedimentary"
         }
         self.SamplesFields = {
             "SampleId":True,
