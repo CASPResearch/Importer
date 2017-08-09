@@ -125,91 +125,111 @@ class UIFunctions(QtGui.QDialog):
             "FirstReport":True
         }
 
-    def run(self, layer):
-        print "Run called in UIFunctions"
-
-        # Check which of the three table types is being imported
-        tableType = ""
+    # Check which of the three table types is being imported
+    def getTableType(self, layer):
         for field in layer.fields():
             name = field.name()
             if name in self.tableTypeCheck:
-                tableType = self.tableTypeCheck[name]
+                layer.tableType = self.tableTypeCheck[name]
                 break
 
-        if tableType == "":
-            print "Attempted to import an invalid table"
+        if not hasattr(layer, "tableType"):
             ctypes.windll.user32.MessageBoxW(0, u"Your table must contain a field named LithologyCategory, SummaryAge, or Laboratory", u"Error", 0x0|0x10)
+
+    def getLithologyCategory(self, layer):
+        # Find the lithology category
+        feature = layer.getFeatures().next()
+        layer.cat = self.lithologyCheck[feature["LithologyCategory"]] # Store cat on the layer for later
+
+        if not hasattr(layer, "cat"):
+            ctypes.windll.user32.MessageBoxW(0, u"The import table did not contain or match a valid lithology", u"Error", 0x0|0x10)
+
+    def run(self, layer):
+        self.getTableType(layer)
+        if not hasattr(layer, "tableType"):
             return
 
-        self.uidCheck(layer, tableType)
-
-        # Check the list of headings are all valid
-        for field in layer.fields():
-            name = field.name()
-            handler = getattr(self, '{}'.format(tableType + "Fields"))
-            if not name in handler:
-                print "Invalid column heading detected"
-                msg = "Invalid column heading: " + name
-                ctypes.windll.user32.MessageBoxW(0, msg, u"Error", 0x0|0x10)
+        uidResult = ""
+        if layer.tableType == "Samples":
+            self.getLithologyCategory(layer)
+            if not hasattr(layer, "cat"):
                 return
 
-        # Check if the layer is sedimentary or igneous
-        tableLithology = ""
-        feature = layer.getFeatures().next()
-        if tableType == "Samples":
-            cat = feature["LithologyCategory"]
-            tableLithology = self.lithologyCheck[cat]
+            layerName = getattr(self, layer.cat + "SamplesMaster")
+
+            # Check the UIDs aren't duplicated
+            uidResult = self.uidCheck(layer, layerName)
         else:
+            # First, check both SamplesMasters to find a matching UID, and hence the lithology category
+            feature = layer.getFeatures().next()
             id = feature["SampleId"]
-
-            # Try the Igneous master
-            master = QgsMapLayerRegistry.instance().mapLayersByName(self.igneousSamples)
-            for mFeature in master.getFeatures():
-                if mFeature["SampleId"] == id: # We have a match
-                    cat = mFeature["LithologyCategory"]
-                    tableLithology = self.lithologyCheck[cat]
-            
-            # Try the Sedimentary master
-            if tableLithology == "":
-                master = QgsMapLayerRegistry.instance().mapLayersByName(self.sedimentarySamples)
+            ign = self.igneousSamplesMaster
+            sed = self.sedimentarySamplesMaster
+            for layerName in {ign, sed}:
+                master = QgsMapLayerRegistry.instance().mapLayersByName(layerName)
                 for mFeature in master.getFeatures():
-                    if mFeature["SampleId"] == id:
-                        cat = mFeature["LithologyCategory"]
-                        tableLithology = self.lithologyCheck[cat]
+                    if mFeature["SampleId"] == id: # We have a match
+                        layer.cat = self.lithologyCheck[mFeature["LithologyCategory"]]
 
-        if tableLithology == "":
-            print "Attempted to import a table with no lithology match"
-            ctypes.windll.user32.MessageBoxW(0, u"The import table did not contain or match a valid lithology", u"Error", 0x0|0x10)
+            if not hasattr(layer, "cat"):
+                ctypes.windll.user32.MessageBoxW(0, u"Attempted to import a subtable with UIDs not in a samples master", u"Error", 0x0|0x10)
+                return
+
+            # Now we know our category and our type, we can check we aren't duplicating an entry
+            name = getattr(self, layer.cat + tableType + "Master")
+            uidResult = self.uidCheck(layer, name)
+
+        if not uidResult:
+            return
+
+        if not self.checkHeadings(layer):
             return
 
         self.fillFields(layer)
 
         self.show()
 
-    # Check that sample IDs exist for importing subtables
-    def uidCheck(self, layer, tableType):
-        if tableType == "SummaryAges" or tableType == "SampleAnalyses":
-            # Build an id list from both master samples tables
-            idList = []
+    def checkHeadings(self, layer):
+        # Check the list of headings are all valid
+        for field in layer.fields():
+            name = field.name()
+            allowedFields = getattr(self, layer.tableType + "Fields")
+            if not name in allowedFields:
+                msg = "Invalid column heading: " + name
+                ctypes.windll.user32.MessageBoxW(0, msg, u"Error", 0x0|0x10)
+                return False
+        
+        return True
 
-            master = QgsMapLayerRegistry.instance().mapLayersByName(self.igneousSamples)
-            if master:
-                for feature in master.getFeatures():
-                    idList.append(feature["SampleId"])
+    # Check that sample IDs don't already exist for importing tables
+    def uidCheck(self, layer, checkLayerName):
+        # Build an ID list from all appropriate layers
+        idList = []
+        print checkLayerName
+        master = QgsMapLayerRegistry.instance().mapLayersByName(checkLayerName)
+        print "Printing master"
+        print master
+        print hasattr(master, "getFeatures")
+        print hasattr(master, "name")
+        print dir(master)
+        print dir(layer)
+        if master:
+            for feature in master.getFeatures():
+                idList.append(feature["SampleId"])
+        else:
+            return False
 
-            master = QgsMapLayerRegistry.instance().mapLayersByName(self.sedimentarySamples)
-            if master:
-                for feature in master.getFeatures():
-                    idList.append(feature["SampleId"])
+        lines = layer.getFeatures()
+        for line in lines:
+            if line["SampleId"] in idList:
+                msg = "A duplicate SampleId was found: " + line["SampleId"]
+                ctypes.windll.user32.MessageBoxW(0, msg, u"Error", 0x0|0x10)
+                return False
 
-            # Iterate over features there to make a list
-            lines = layer.getFeatures()
-            for line in lines:
-                if line["SampleId"] in idList:
-                    print "Attempted to import a duplicate sample"
-                    msg = "A duplicate SampleId was found: " + line["SampleId"]
-                    ctypes.windll.user32.MessageBoxW(0, msg, u"Error", 0x0|0x10)
-                    return
+        # This gets tricky. For Samples and SampleAnalyses, which stand alone, master is also destination
+        # For SummaryAges and RawExcel, this is the master updated, but not the destination fused feature class
+        layer.masterLayer = checkLayerName
+        return True
 
     def fillFields(self, layer):
         # Display Lithology and layer type
