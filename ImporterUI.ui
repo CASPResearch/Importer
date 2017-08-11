@@ -7,13 +7,16 @@
     <x>0</x>
     <y>0</y>
     <width>702</width>
-    <height>316</height>
+    <height>411</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <widget class="QLineEdit" name="inputLayerField">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>130</x>
@@ -24,6 +27,12 @@
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="maxLength">
+    <number>70</number>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -146,7 +155,7 @@
    <property name="geometry">
     <rect>
      <x>55</x>
-     <y>180</y>
+     <y>201</y>
      <width>66</width>
      <height>16</height>
     </rect>
@@ -162,7 +171,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>125</y>
+     <y>135</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -194,7 +203,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>150</y>
+     <y>171</y>
      <width>111</width>
      <height>21</height>
     </rect>
@@ -207,6 +216,9 @@
    </property>
   </widget>
   <widget class="QLineEdit" name="destinationLayerField">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>130</x>
@@ -215,18 +227,8 @@
      <height>20</height>
     </rect>
    </property>
-  </widget>
-  <widget class="QLineEdit" name="destinationPathField">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>130</y>
-     <width>416</width>
-     <height>20</height>
-    </rect>
+   <property name="maxLength">
+    <number>70</number>
    </property>
    <property name="readOnly">
     <bool>true</bool>
@@ -249,13 +251,22 @@
    </property>
   </widget>
   <widget class="QLineEdit" name="destinationPreviewField">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>155</y>
+     <y>175</y>
      <width>416</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="maxLength">
+    <number>70</number>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label_14">
@@ -275,30 +286,48 @@
    </property>
   </widget>
   <widget class="QLineEdit" name="masterLayerField">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>180</y>
+     <y>200</y>
      <width>416</width>
      <height>20</height>
     </rect>
    </property>
+   <property name="maxLength">
+    <number>70</number>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QLineEdit" name="masterPreviewField">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>205</y>
+     <y>225</y>
      <width>416</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="maxLength">
+    <number>70</number>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
      <x>645</x>
-     <y>129</y>
+     <y>140</y>
      <width>46</width>
      <height>22</height>
     </rect>
@@ -400,7 +429,7 @@
    <property name="geometry">
     <rect>
      <x>45</x>
-     <y>200</y>
+     <y>221</y>
      <width>76</width>
      <height>21</height>
     </rect>
@@ -447,7 +476,7 @@
    <property name="geometry">
     <rect>
      <x>555</x>
-     <y>155</y>
+     <y>175</y>
      <width>46</width>
      <height>20</height>
     </rect>
@@ -488,7 +517,7 @@
    <property name="geometry">
     <rect>
      <x>610</x>
-     <y>155</y>
+     <y>176</y>
      <width>46</width>
      <height>16</height>
     </rect>
@@ -507,7 +536,7 @@
    <property name="geometry">
     <rect>
      <x>555</x>
-     <y>180</y>
+     <y>200</y>
      <width>46</width>
      <height>20</height>
     </rect>
@@ -532,7 +561,7 @@
    <property name="geometry">
     <rect>
      <x>610</x>
-     <y>180</y>
+     <y>201</y>
      <width>46</width>
      <height>16</height>
     </rect>
@@ -551,7 +580,7 @@
    <property name="geometry">
     <rect>
      <x>555</x>
-     <y>205</y>
+     <y>225</y>
      <width>46</width>
      <height>20</height>
     </rect>
@@ -576,7 +605,7 @@
    <property name="geometry">
     <rect>
      <x>610</x>
-     <y>205</y>
+     <y>226</y>
      <width>46</width>
      <height>16</height>
     </rect>
@@ -592,7 +621,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>235</y>
+     <y>265</y>
      <width>601</width>
      <height>71</height>
     </rect>
@@ -641,6 +670,9 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="maxLength">
+     <number>70</number>
+    </property>
     <property name="readOnly">
      <bool>true</bool>
     </property>
@@ -670,6 +702,9 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="maxLength">
+     <number>70</number>
+    </property>
     <property name="readOnly">
      <bool>true</bool>
     </property>
@@ -695,7 +730,7 @@
    <property name="geometry">
     <rect>
      <x>645</x>
-     <y>179</y>
+     <y>200</y>
      <width>46</width>
      <height>22</height>
     </rect>
@@ -708,7 +743,7 @@
    <property name="geometry">
     <rect>
      <x>645</x>
-     <y>154</y>
+     <y>175</y>
      <width>46</width>
      <height>22</height>
     </rect>
@@ -734,7 +769,7 @@
    <property name="geometry">
     <rect>
      <x>645</x>
-     <y>204</y>
+     <y>225</y>
      <width>46</width>
      <height>22</height>
     </rect>
@@ -769,6 +804,22 @@
     <string>Open</string>
    </property>
   </widget>
+  <widget class="QPlainTextEdit" name="destinationPathField">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>130</y>
+     <width>416</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
   <zorder>groupBox</zorder>
   <zorder>inputLayerField</zorder>
   <zorder>label</zorder>
@@ -779,7 +830,6 @@
   <zorder>label_8</zorder>
   <zorder>label_10</zorder>
   <zorder>destinationLayerField</zorder>
-  <zorder>destinationPathField</zorder>
   <zorder>projectPathField</zorder>
   <zorder>destinationPreviewField</zorder>
   <zorder>label_14</zorder>
@@ -803,7 +853,38 @@
   <zorder>pushButton_14</zorder>
   <zorder>pushButton_15</zorder>
   <zorder>pushButton_16</zorder>
+  <zorder>destinationPathField</zorder>
  </widget>
+ <tabstops>
+  <tabstop>pushButton_16</tabstop>
+  <tabstop>pushButton_15</tabstop>
+  <tabstop>pushButton_13</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>pushButton_12</tabstop>
+  <tabstop>pushButton_11</tabstop>
+  <tabstop>pushButton_14</tabstop>
+  <tabstop>pushButton_9</tabstop>
+  <tabstop>pushButton_10</tabstop>
+  <tabstop>projectPathField</tabstop>
+  <tabstop>destinationPreviewField</tabstop>
+  <tabstop>masterPreviewCount</tabstop>
+  <tabstop>masterLayerField</tabstop>
+  <tabstop>destinationPreviewCount</tabstop>
+  <tabstop>destinationLayerCount</tabstop>
+  <tabstop>masterLayerCount</tabstop>
+  <tabstop>masterPreviewField</tabstop>
+  <tabstop>inputLayerCount</tabstop>
+  <tabstop>radioButtonsedimentary</tabstop>
+  <tabstop>radioButtonigneous</tabstop>
+  <tabstop>radioButtonSamples</tabstop>
+  <tabstop>radioButtonSummaryAges</tabstop>
+  <tabstop>radioButtonSampleAnalyses</tabstop>
+  <tabstop>radioButtonRawExcel</tabstop>
+  <tabstop>destinationBackupPathField</tabstop>
+  <tabstop>inputLayerField</tabstop>
+  <tabstop>masterBackupPathField</tabstop>
+  <tabstop>destinationLayerField</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
  <buttongroups>
