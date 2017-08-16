@@ -1,65 +1,103 @@
-from qgis.core import QgsMapLayerRegistry, QgsMapLayer
+from qgis.core import *
+from processing.core.Processing import Processing
 
-import ctypes
 import CheckLists
+import processing.tools
+import ctypes
 
 def getLayerByName(name):
-    return QgsMapLayerRegistry.instance().mapLayersByName(name)[0]
+    layers = QgsMapLayerRegistry.instance().mapLayersByName(name)
+    if layers:
+        return layers[0]
 
-# Check which of the three table types is being imported
-def getTableType(layer):
-    list = CheckLists.tableTypeCheck
+    msg = "No layers of requested name: " + name
+    ctypes.windll.user32.MessageBoxW(0, msg, u"Error", 0x0|0x10)
+    return False
+
+# Check which table type is being imported
+def getTableVariety(layer):
+    list = CheckLists.tableVariety
     for field in layer.fields():
         name = field.name()
         if name in list:
             layer.tableType = list[name]
             return True
 
-    ctypes.windll.user32.MessageBoxW(0, u"Your table must contain a field named LithologyCategory, SummaryAge, Laboratory, or RawExcel", u"Error", 0x0|0x10)
+    QMessageBox.warning(layer.window, "Wrong Layer Type", "Your table must contain a field named LithologyCategory, SummaryAge, Laboratory, or RawExcel")
     return False
 
 # Check that our LithologyCategory is a valid entry
 def getLithologyCategory(layer):
-    feature = layer.getFeatures().next()
-    if feature["LithologyCategory"] in CheckLists.lithologyCheck:
-        layer.cat = CheckLists.lithologyCheck[feature["LithologyCategory"]]
-        return True
+    # First find which sample layer our UID appears in, or use ourself if we're a sample layer
+    idLayer = ""
+    if layer.tableType == "samples": # We contain the actual lithology category
+        idLayer = layer
+    else:
+        idLayer = checkUID(layer, layerNames.igneoussample) or checkUID(layer, layerNames.sedimentarysample)
+        if not idLayer:
+            QMessageBox.warning(layer.window, "No sample table", "No UID match found in sample tables. Please import the appropriate samples")
+            return False
 
-    ctypes.windll.user32.MessageBoxW(0, u"The import table did not contain or match a valid lithology", u"Error", 0x0|0x10)
+    # Now check if the sample layer identified has a lithologycategory, and what it is
+    feature = idLayer.getFeatures().next()
+    cat = feature["lithologycategory"]
+    if cat:
+        if cat in CheckLists.lithologyCheck:
+            layer.cat = CheckLists.lithologyCheck[feature["lithologycategory"]]
+            return True
+        else:
+            QMessageBox.warning(layer.window, "Invalid lithology", "The import table did not contain or match a valid lithology")
+    else:
+        QMessageBox.warning(layer.window, "Error", "A sample table was found, but it doesn't have a lithologycategory field! Please investigate")
+
     return False
 
 # Check the list of headings are all valid
 def checkHeadings(layer):
-    allowedFields = getattr(CheckLists, layer.tableType + "Fields")
+    remaining = list(getattr(CheckLists, layer.tableVariety + "Fields"))
+    unexpected = []
+
     for field in layer.fields():
-        name = field.name()
-        if not name in allowedFields:
-            msg = "Invalid column heading: " + name
-            ctypes.windll.user32.MessageBoxW(0, msg, u"Error", 0x0|0x10)
-            return False
-        
-    return True
+        if field in remaining:
+            remaining.remove(field)
+        else:
+            unexpected.append(field)
 
-
-# Check that sample IDs don't already exist for importing tables
-def uidCheck(layer, checkLayerName):
-    # Build an ID list from all appropriate layers
-    idList = []
-    master = getLayerByName(checkLayerName)
-    if master:
-        for feature in master.getFeatures():
-            idList.append(feature["SampleId"])
-    else:
+    if len(unexpected) > 0 or len(remaining) > 0:
+        QMessageBox.warning(layer.window, "Error", "Invalid headings found: %s. Required headings not found: %s" % (unexpected, remaining))
         return False
 
-    lines = layer.getFeatures()
-    for line in lines:
-        if line["SampleId"] in idList:
-            msg = "A duplicate SampleId was found: " + line["SampleId"]
-            ctypes.windll.user32.MessageBoxW(0, msg, u"Error", 0x0|0x10)
-            return False
+    return True
 
-    # This gets tricky. For Samples and SampleAnalyses, which stand alone, master is also destination
-    # For SummaryAges and RawExcel, this is the master updated, but not the destination fused feature class
-    layer.masterLayer = checkLayerName
+# Check if a sample ID from one layer is found in another
+def checkUID(layer, checkLayerName):
+    # Build an ID list from all appropriate layers
+    ids = []
+    checkLayer = getLayerByName(checkLayerName)
+    if not checkLayer:
+        return False
+
+    for feature in checkLayer.getFeatures():
+        ids.append(feature["sampleid"])
+
+    rows = layer.getFeatures()
+    for row in rows:
+        if row["sampleid"] in ids:
+            return checkLayer
+
+    return False
+
+def processTempFilePath(path):
+    if "dbname='" in path:
+        print "Cutting rubbish off the front of fileName"
+        return path[8:]
+    return path
+
+def mergeLayersIntoTemp(importLayer):
+    masterLayer = getLayerByName(importLayer.masterName)
+    if not masterLayer:
+        return False
+
+    Processing.initialize()
+    processing.runandload("qgis:mergevectorlayers", [importLayer] + [masterLayer], None)
     return True

@@ -5,28 +5,31 @@ radioButtonigneous
 radioButtonsedimentary
 ignSedButtonGroup
 
-radioButtonSamples
-radioButtonSummaryAges
-radioButtonSampleAnalyses
-radioButtonRawExcel
+radioButtonsample
+radioButtonage
+radioButtonanalysis
+radioButtonexcel
 dataButtonGroup
 
 # Paths
 projectPathField
-destinationPathField
-destinationBackupPathField
-masterBackupPatField
+backupPathField
 
 # Layers
-inputLayerField
-destinationLayerField
-destinationPreviewField
-masterLayerField
-masterPreviewField
+inputField
+destinationField
+tempField
 
 # Counters
-inputLayerCount
-destinationLayerCount
-destinationPreviewCount
-masterLayerCount
-masterPreviewCount
+inputCount
+destinationCount
+tempCount
+
+# File Names
+destinationFilenameField
+backupNameField
+
+# Main buttons
+pushButtonProceed
+pushButtonSavePath
+pushButtonBackupPath

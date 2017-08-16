@@ -1,22 +1,27 @@
 # This file contains a function to create a time indexed backup of a given layer
+from qgis.core import QMessageBox
+
 import os
 import datetime
 import zipfile
+import Utils
 
 def backup(layer):
-    master = Utils.getLayerByName(layer.masterLayer)
+    masterLayer = Utils.getLayerByName(layer.masterName)
+    (filePath, fileName) = os.path.split(masterLayer.dataProvider().dataSourceUri())
 
-    (filePath, fileName) = os.path.split(master.dataProvider().dataSourceUri())
-
+    filePath = Utils.processTempFilePath(filePath)
     fileName = os.path.splitext(fileName)[0] # Remove the file extension
 
     # Create a Backups folder if there isn't one, to store the zips
-    bkupadd = os.path.join(filePath, "Backups")
+    bkupadd = filePath + "/Backups"
+    print "Folder path for backups is", bkupadd
     if not os.path.exists(bkupadd):
         os.makedirs(bkupadd)
 
     timeStr = datetime.datetime.now().strftime('-%Y%m%d-%H%M')
-    backupPath = os.path.join(bkupadd, fileName + timeStr + ".zip")
+    layer.zipName = fileName + timeStr + ".zip" # Store this here so it can be accessed later on in UI population
+    backupPath = os.path.join(bkupadd, layer.zipName)
 
     # Create the zip
     try:
@@ -26,7 +31,9 @@ def backup(layer):
             name, ext = os.path.splitext(baseName)
             if name == fileName:
                 path = os.path.join(filePath, baseName)
-                zf.write(path, baseName) # Compression will depend on if zlib is found or not
+                zf.write(path, baseName)
         zf.close()
+        return True
     except:
-        self.iface.messageBar().pushMessage("Error","Problems creating archive. Verify this is a file layer and not a database layer.", 2, duration=5)
+        QMessageBox.warning(layer.window, "Error", "Problems creating archive")
+        return False

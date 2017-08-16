@@ -6,22 +6,22 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>702</width>
-    <height>411</height>
+    <width>661</width>
+    <height>286</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLineEdit" name="inputLayerField">
+  <widget class="QLineEdit" name="inputField">
    <property name="enabled">
     <bool>false</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>80</y>
-     <width>416</width>
+     <x>120</x>
+     <y>79</y>
+     <width>421</width>
      <height>21</height>
     </rect>
    </property>
@@ -38,7 +38,7 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>50</x>
      <y>80</y>
      <width>61</width>
      <height>16</height>
@@ -59,7 +59,7 @@
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>610</x>
+     <x>605</x>
      <y>80</y>
      <width>46</width>
      <height>16</height>
@@ -72,13 +72,13 @@
     <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
    </property>
   </widget>
-  <widget class="QLineEdit" name="inputLayerCount">
+  <widget class="QLineEdit" name="inputCount">
    <property name="enabled">
     <bool>false</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>555</x>
+     <x>550</x>
      <y>80</y>
      <width>46</width>
      <height>20</height>
@@ -151,33 +151,17 @@
     </attribute>
    </widget>
   </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>55</x>
-     <y>201</y>
-     <width>66</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Master Layer</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>135</y>
-     <width>91</width>
+     <x>10</x>
+     <y>125</y>
+     <width>101</width>
      <height>21</height>
     </rect>
    </property>
    <property name="text">
-    <string>Destination Path</string>
+    <string>Destination Filename</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
@@ -186,7 +170,7 @@
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
-     <x>15</x>
+     <x>5</x>
      <y>50</y>
      <width>106</width>
      <height>21</height>
@@ -202,28 +186,28 @@
   <widget class="QLabel" name="label_10">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>171</y>
+     <x>0</x>
+     <y>150</y>
      <width>111</width>
      <height>21</height>
     </rect>
    </property>
    <property name="text">
-    <string>Destination Preview</string>
+    <string>Temporary Layer</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
    </property>
   </widget>
-  <widget class="QLineEdit" name="destinationLayerField">
+  <widget class="QLineEdit" name="destinationField">
    <property name="enabled">
     <bool>false</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>120</x>
      <y>105</y>
-     <width>416</width>
+     <width>421</width>
      <height>20</height>
     </rect>
    </property>
@@ -240,9 +224,9 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>120</x>
      <y>55</y>
-     <width>506</width>
+     <width>476</width>
      <height>20</height>
     </rect>
    </property>
@@ -250,15 +234,15 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="destinationPreviewField">
+  <widget class="QLineEdit" name="tempField">
    <property name="enabled">
     <bool>false</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>175</y>
-     <width>416</width>
+     <x>120</x>
+     <y>155</y>
+     <width>421</width>
      <height>20</height>
     </rect>
    </property>
@@ -272,74 +256,23 @@
   <widget class="QLabel" name="label_14">
    <property name="geometry">
     <rect>
-     <x>35</x>
+     <x>25</x>
      <y>100</y>
      <width>86</width>
      <height>21</height>
     </rect>
    </property>
    <property name="text">
-    <string>Destination Layer</string>
+    <string>Destination</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
    </property>
   </widget>
-  <widget class="QLineEdit" name="masterLayerField">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>200</y>
-     <width>416</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="maxLength">
-    <number>70</number>
-   </property>
-   <property name="readOnly">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="masterPreviewField">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>225</y>
-     <width>416</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="maxLength">
-    <number>70</number>
-   </property>
-   <property name="readOnly">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>645</x>
-     <y>140</y>
-     <width>46</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Open</string>
-   </property>
-  </widget>
   <widget class="QGroupBox" name="groupBox_3">
    <property name="geometry">
     <rect>
-     <x>295</x>
+     <x>255</x>
      <y>5</y>
      <width>396</width>
      <height>46</height>
@@ -348,7 +281,7 @@
    <property name="title">
     <string>Data Type</string>
    </property>
-   <widget class="QRadioButton" name="radioButtonSamples">
+   <widget class="QRadioButton" name="radioButtonsample">
     <property name="enabled">
      <bool>false</bool>
     </property>
@@ -367,7 +300,7 @@
      <string notr="true">dataButtonGroup</string>
     </attribute>
    </widget>
-   <widget class="QRadioButton" name="radioButtonSummaryAges">
+   <widget class="QRadioButton" name="radioButtonage">
     <property name="enabled">
      <bool>false</bool>
     </property>
@@ -386,7 +319,7 @@
      <string notr="true">dataButtonGroup</string>
     </attribute>
    </widget>
-   <widget class="QRadioButton" name="radioButtonSampleAnalyses">
+   <widget class="QRadioButton" name="radioButtonanalysis">
     <property name="enabled">
      <bool>false</bool>
     </property>
@@ -405,7 +338,7 @@
      <string notr="true">dataButtonGroup</string>
     </attribute>
    </widget>
-   <widget class="QRadioButton" name="radioButtonRawExcel">
+   <widget class="QRadioButton" name="radioButtonexcel">
     <property name="enabled">
      <bool>false</bool>
     </property>
@@ -425,29 +358,13 @@
     </attribute>
    </widget>
   </widget>
-  <widget class="QLabel" name="label_21">
-   <property name="geometry">
-    <rect>
-     <x>45</x>
-     <y>221</y>
-     <width>76</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Master Preview</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="destinationLayerCount">
+  <widget class="QLineEdit" name="destinationCount">
    <property name="enabled">
     <bool>false</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>555</x>
+     <x>550</x>
      <y>105</y>
      <width>46</width>
      <height>20</height>
@@ -469,14 +386,14 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="destinationPreviewCount">
+  <widget class="QLineEdit" name="tempCount">
    <property name="enabled">
     <bool>false</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>555</x>
-     <y>175</y>
+     <x>550</x>
+     <y>155</y>
      <width>46</width>
      <height>20</height>
     </rect>
@@ -500,7 +417,7 @@
   <widget class="QLabel" name="label_18">
    <property name="geometry">
     <rect>
-     <x>610</x>
+     <x>605</x>
      <y>105</y>
      <width>46</width>
      <height>16</height>
@@ -516,8 +433,8 @@
   <widget class="QLabel" name="label_22">
    <property name="geometry">
     <rect>
-     <x>610</x>
-     <y>176</y>
+     <x>605</x>
+     <y>156</y>
      <width>46</width>
      <height>16</height>
     </rect>
@@ -529,272 +446,10 @@
     <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
    </property>
   </widget>
-  <widget class="QLineEdit" name="masterLayerCount">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
+  <widget class="QPushButton" name="pushButtonSavePath">
    <property name="geometry">
     <rect>
-     <x>555</x>
-     <y>200</y>
-     <width>46</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="maxLength">
-    <number>6</number>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="readOnly">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_23">
-   <property name="geometry">
-    <rect>
-     <x>610</x>
-     <y>201</y>
-     <width>46</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Lines</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="masterPreviewCount">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>555</x>
-     <y>225</y>
-     <width>46</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="maxLength">
-    <number>6</number>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="readOnly">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_24">
-   <property name="geometry">
-    <rect>
-     <x>610</x>
-     <y>226</y>
-     <width>46</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Lines</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-   </property>
-  </widget>
-  <widget class="QGroupBox" name="groupBox_4">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>265</y>
-     <width>601</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Backups</string>
-   </property>
-   <widget class="QPushButton" name="pushButton_9">
-    <property name="geometry">
-     <rect>
-      <x>545</x>
-      <y>14</y>
-      <width>46</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Open</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_13">
-    <property name="geometry">
-     <rect>
-      <x>15</x>
-      <y>11</y>
-      <width>96</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Destination Backup</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="destinationBackupPathField">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>15</y>
-      <width>416</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="maxLength">
-     <number>70</number>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_10">
-    <property name="geometry">
-     <rect>
-      <x>545</x>
-      <y>39</y>
-      <width>46</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Open</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="masterBackupPathField">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>40</y>
-      <width>416</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="maxLength">
-     <number>70</number>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_9">
-    <property name="geometry">
-     <rect>
-      <x>35</x>
-      <y>35</y>
-      <width>76</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Master Backup</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QPushButton" name="pushButton_11">
-   <property name="geometry">
-    <rect>
-     <x>645</x>
-     <y>200</y>
-     <width>46</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Open</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_12">
-   <property name="geometry">
-    <rect>
-     <x>645</x>
-     <y>175</y>
-     <width>46</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Open</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_13">
-   <property name="geometry">
-    <rect>
-     <x>645</x>
-     <y>104</y>
-     <width>46</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Open</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_14">
-   <property name="geometry">
-    <rect>
-     <x>645</x>
-     <y>225</y>
-     <width>46</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Open</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_15">
-   <property name="geometry">
-    <rect>
-     <x>645</x>
-     <y>79</y>
-     <width>46</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Open</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_16">
-   <property name="geometry">
-    <rect>
-     <x>645</x>
+     <x>605</x>
      <y>54</y>
      <width>46</width>
      <height>22</height>
@@ -804,86 +459,165 @@
     <string>Open</string>
    </property>
   </widget>
-  <widget class="QPlainTextEdit" name="destinationPathField">
+  <widget class="QPushButton" name="pushButtonProceed">
+   <property name="geometry">
+    <rect>
+     <x>255</x>
+     <y>235</y>
+     <width>146</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Proceed With Merge</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="destinationFilenameField">
    <property name="enabled">
     <bool>false</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>120</x>
      <y>130</y>
-     <width>416</width>
-     <height>41</height>
+     <width>531</width>
+     <height>20</height>
     </rect>
+   </property>
+   <property name="maxLength">
+    <number>70</number>
    </property>
    <property name="readOnly">
     <bool>true</bool>
    </property>
   </widget>
+  <widget class="QPushButton" name="pushButtonBackupPath">
+   <property name="geometry">
+    <rect>
+     <x>605</x>
+     <y>180</y>
+     <width>46</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_13">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>177</y>
+     <width>96</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Backup Path</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="backupPathField">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>180</y>
+     <width>476</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="maxLength">
+    <number>70</number>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="backupNameField">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>205</y>
+     <width>531</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="maxLength">
+    <number>70</number>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>25</x>
+     <y>200</y>
+     <width>86</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Backup Filename</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+   </property>
+  </widget>
   <zorder>groupBox</zorder>
-  <zorder>inputLayerField</zorder>
+  <zorder>inputField</zorder>
   <zorder>label</zorder>
   <zorder>label_5</zorder>
-  <zorder>inputLayerCount</zorder>
-  <zorder>label_2</zorder>
+  <zorder>inputCount</zorder>
   <zorder>label_7</zorder>
   <zorder>label_8</zorder>
   <zorder>label_10</zorder>
-  <zorder>destinationLayerField</zorder>
+  <zorder>destinationField</zorder>
   <zorder>projectPathField</zorder>
-  <zorder>destinationPreviewField</zorder>
+  <zorder>tempField</zorder>
   <zorder>label_14</zorder>
-  <zorder>masterLayerField</zorder>
-  <zorder>masterPreviewField</zorder>
-  <zorder>pushButton</zorder>
   <zorder>groupBox_3</zorder>
-  <zorder>label_21</zorder>
-  <zorder>destinationLayerCount</zorder>
-  <zorder>destinationPreviewCount</zorder>
+  <zorder>destinationCount</zorder>
+  <zorder>tempCount</zorder>
   <zorder>label_18</zorder>
   <zorder>label_22</zorder>
-  <zorder>masterLayerCount</zorder>
-  <zorder>label_23</zorder>
-  <zorder>masterPreviewCount</zorder>
-  <zorder>label_24</zorder>
-  <zorder>groupBox_4</zorder>
-  <zorder>pushButton_11</zorder>
-  <zorder>pushButton_12</zorder>
-  <zorder>pushButton_13</zorder>
-  <zorder>pushButton_14</zorder>
-  <zorder>pushButton_15</zorder>
-  <zorder>pushButton_16</zorder>
-  <zorder>destinationPathField</zorder>
+  <zorder>pushButtonSavePath</zorder>
+  <zorder>pushButtonProceed</zorder>
+  <zorder>destinationFilenameField</zorder>
+  <zorder>pushButtonBackupPath</zorder>
+  <zorder>label_13</zorder>
+  <zorder>backupPathField</zorder>
+  <zorder>backupNameField</zorder>
+  <zorder>label_9</zorder>
  </widget>
  <tabstops>
-  <tabstop>pushButton_16</tabstop>
-  <tabstop>pushButton_15</tabstop>
-  <tabstop>pushButton_13</tabstop>
-  <tabstop>pushButton</tabstop>
-  <tabstop>pushButton_12</tabstop>
-  <tabstop>pushButton_11</tabstop>
-  <tabstop>pushButton_14</tabstop>
-  <tabstop>pushButton_9</tabstop>
-  <tabstop>pushButton_10</tabstop>
+  <tabstop>pushButtonSavePath</tabstop>
+  <tabstop>pushButtonBackupPath</tabstop>
   <tabstop>projectPathField</tabstop>
-  <tabstop>destinationPreviewField</tabstop>
-  <tabstop>masterPreviewCount</tabstop>
-  <tabstop>masterLayerField</tabstop>
-  <tabstop>destinationPreviewCount</tabstop>
-  <tabstop>destinationLayerCount</tabstop>
-  <tabstop>masterLayerCount</tabstop>
-  <tabstop>masterPreviewField</tabstop>
-  <tabstop>inputLayerCount</tabstop>
+  <tabstop>tempField</tabstop>
+  <tabstop>tempCount</tabstop>
+  <tabstop>destinationCount</tabstop>
+  <tabstop>inputCount</tabstop>
   <tabstop>radioButtonsedimentary</tabstop>
   <tabstop>radioButtonigneous</tabstop>
-  <tabstop>radioButtonSamples</tabstop>
-  <tabstop>radioButtonSummaryAges</tabstop>
-  <tabstop>radioButtonSampleAnalyses</tabstop>
-  <tabstop>radioButtonRawExcel</tabstop>
-  <tabstop>destinationBackupPathField</tabstop>
-  <tabstop>inputLayerField</tabstop>
-  <tabstop>masterBackupPathField</tabstop>
-  <tabstop>destinationLayerField</tabstop>
+  <tabstop>radioButtonsample</tabstop>
+  <tabstop>radioButtonage</tabstop>
+  <tabstop>radioButtonanalysis</tabstop>
+  <tabstop>radioButtonexcel</tabstop>
+  <tabstop>backupPathField</tabstop>
+  <tabstop>inputField</tabstop>
+  <tabstop>backupNameField</tabstop>
+  <tabstop>destinationField</tabstop>
  </tabstops>
  <resources/>
  <connections/>
