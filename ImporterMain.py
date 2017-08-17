@@ -1,5 +1,7 @@
 from qgis.core import *
 from ImporterUIFunctions import UIFunctions
+from PyQt4.QtGui import *
+
 
 class Importer:
     def __init__(self, iface):
@@ -31,7 +33,7 @@ class Importer:
 
     def run(self):
         layer = self.iface.activeLayer()
-        
+
         if layer.type() == QgsMapLayer.VectorLayer and layer.wkbType() == QGis.WKBPoint:
             self.dialog.run(layer)
         else:
