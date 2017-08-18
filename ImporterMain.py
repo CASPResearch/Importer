@@ -1,7 +1,12 @@
-from qgis.core import *
-from ImporterUIFunctions import UIFunctions
+from PrimaryUIFunctions import UIFunctions
+from SecondaryUIFunctions import UIFunctions2
 from PyQt4.QtGui import *
+from qgis.core import QgsMapLayer, QGis
 
+import Utils
+
+# initialize Qt resources from file resources.py. This makes the button icon show up
+import resources
 
 class Importer:
     def __init__(self, iface):
@@ -9,7 +14,10 @@ class Importer:
         self.iface = iface
 
         # Create the UI dialog
-        self.dialog = UIFunctions(iface)
+        self.primaryDialog = UIFunctions(iface)
+        self.secondaryDialog = UIFunctions2(iface)
+
+        Utils.setGlobals(self)
 
     # Called from QGIS on launch
     def initGui(self):
@@ -35,6 +43,16 @@ class Importer:
         layer = self.iface.activeLayer()
 
         if layer.type() == QgsMapLayer.VectorLayer and layer.wkbType() == QGis.WKBPoint:
-            self.dialog.run(layer)
+            self.primaryDialog.run(layer)
         else:
-            QMessageBox.warning(self.iface.mainWindow(), "Wrong Layer Type", "Import layer must be a Point Geometry Vector Layer")
+            QMessageBox.warning(self.iface.mainWindow(), "Wrong Layer Type",
+                                "Import layer must be a Point Geometry Vector Layer")
+
+    def runSecondaryUI(self, master):
+        # Refresh the map view
+        if self.iface.mapCanvas().isCachingEnabled():
+            master.setCacheImage(None)
+        else:
+            self.iface.mapCanvas().refresh()
+
+        self.secondaryDialog.run(master)

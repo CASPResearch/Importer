@@ -1,19 +1,15 @@
 # This module is called from ImporterMain at __init__
 # It deals with all the functions available to be called from the UI
 
-from PyQt4 import *
-from ImporterUI import Ui_Dialog
+from PyQt4 import QtGui
+from PyQt4.QtGui import QMessageBox
+from PrimaryUI import Ui_Dialog
 from qgis.core import *
 from LayerNames import layerNames
 from Backup import backup
-from processing.core.Processing import Processing
-from PyQt4.QtSql import QSqlDatabase
-from osgeo import ogr
 
-import os, ctypes
+import os
 import Utils
-import CheckLists
-import processing.tools
 import subprocess
 
 class UIFunctions(QtGui.QDialog):
@@ -22,13 +18,15 @@ class UIFunctions(QtGui.QDialog):
 
         self.iface = iface
 
+        # Get the main project directory
+        self.saveDir = os.getcwd()
+
         # Create the main UI at launch. It hides itself as part of the creation process
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
 
     def run(self, layer):
-        self.layer = layer # Save this so button functions can pick it up and pass it forwards
-        layer.window = self.iface.mainWindow() # So that util functions can print errors to the window
+        self.layer = layer  # Save this so button functions can pick it up and pass it forwards
 
         # Determine which table is being imported, out of sample, age, analysis, and excel
         if not Utils.getTableVariety(layer):
@@ -40,15 +38,19 @@ class UIFunctions(QtGui.QDialog):
 
         # Now we know our category and our type, we can check we aren't duplicating an entry
         name = layerNames[layer.cat + layer.tableVariety]
-        if Utils.uidCheck(layer, name):
+        if Utils.checkUID(layer, name):
+            QMessageBox.warning(layer.window, "UID duplication detected", "UID already imported: %s" % layer.uidMatch)
             return
+
+        layer.masterName = name # We're not duplicating, so now store this for future reference
 
         # Check that our column headings are all valid
         if not Utils.checkHeadings(layer):
             return
 
         # Create a copy of our layer's target in a zip file, indexed by date and time
-        if not backup(layer):
+        master = Utils.getLayerByName(layer.masterName)
+        if not backup(master):
             return
 
         # Create a temporary layer which is the result of merging the source and target
@@ -60,14 +62,15 @@ class UIFunctions(QtGui.QDialog):
         temp = Utils.getLayerByName('Merged')
         if temp:
             self.iface.showAttributeTable(temp)
+            self.temp = temp
         else:
             return
 
         # Populate the UI with appropriate data, and show it
-        self.fillFields(layer, temp)
+        self.fillFields(layer)
         self.show()
 
-    def fillFields(self, layer, tempLayer):
+    def fillFields(self, layer):
         # Display Lithology and layer type
         lith = getattr(self.ui, "radioButton" + layer.cat)
         lith.setChecked(True)
@@ -75,8 +78,6 @@ class UIFunctions(QtGui.QDialog):
         lType = getattr(self.ui, "radioButton" + layer.tableVariety)
         lType.setChecked(True)
 
-        # Get the main project directory
-        self.saveDir = os.getcwd()
         self.ui.projectPathField.setText(self.saveDir)
 
         # Handle the input layer
@@ -95,13 +96,13 @@ class UIFunctions(QtGui.QDialog):
         self.ui.destinationFilenameField.setText(name)
 
         # Handle the temporary layer
-        self.fillLayerRow(tempLayer, "temp")
+        self.fillLayerRow(self.temp, "temp")
 
         # Handle the backup path
-        self.ui.backupPathField.setText(self.saveDir + "/Backups")
+        self.ui.backupPathField.setText(self.saveDir + r"\Backups")
 
         # Handle the backup filename
-        self.ui.backupFilenameField.setText(layer.zipName)
+        self.ui.backupNameField.setText(dest.zipName)
 
         self.setupButtonFunctions()
 
@@ -111,14 +112,14 @@ class UIFunctions(QtGui.QDialog):
         self.ui.pushButtonBackupPath.clicked.connect(self.backupPathButtonFunction)
 
     def proceedButtonFunction(self):
-        self.updateDestination(self.layer)
-        self.close()
+        Utils.updateDestination(self.layer)
+        self.handleClose()
 
     def savePathButtonFunction(self):
         subprocess.Popen('explorer "{0}"'.format(self.saveDir))
 
     def backupPathButtonFunction(self):
-        subprocess.Popen('explorer "{0}"'.format(self.saveDir + "/Backups"))
+        subprocess.Popen('explorer "{0}"'.format(self.saveDir + r"\Backups"))
 
     # Fill a UI row with the layer name, and the feature count of that layer
     def fillLayerRow(self, layer, prefix):
@@ -128,22 +129,12 @@ class UIFunctions(QtGui.QDialog):
 
         count = layer.dataProvider().featureCount()
         uiCount = getattr(self.ui, prefix + "Count")
-        uiCount.setText(str(count))        
+        uiCount.setText(str(count))
 
-    def updateDestination(self, layer):
-        masterLayer = Utils.getLayerByName(layer.masterName)
-
-        for feature in layer.getFeatures():
-            masterLayer.dataProvider().addFeatures([feature])
-
-        if iface.mapCanvas().isCachingEnabled():
-            masterLayer.setCacheImage(None)
-        else:
-            self.iface.mapCanvas().refresh()
-
-        temp = Utils.getLayerByName('Merged')
-        if temp:
-            tempID = temp.id()
+    def handleClose(self):
+        # Cleanup the temp layer
+        if self.temp:
+            tempID = self.temp.id()
             QgsMapLayerRegistry.instance().removeMapLayers([tempID])
-        else:
-            return
+
+        self.close()

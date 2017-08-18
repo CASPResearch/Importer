@@ -33,3 +33,9 @@ backupNameField
 pushButtonProceed
 pushButtonSavePath
 pushButtonBackupPath
+
+# Second UI
+samplesField
+samplesCount
+masterField
+masterCount

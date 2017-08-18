@@ -1,0 +1,1 @@
+pyuic4 -x SecondMergeUI.ui -o SecondMergeUI.py

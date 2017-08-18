@@ -1,18 +1,12 @@
 # This file contains a function to create a time indexed backup of a given layer
-from PyQt4.QtGui import QMessageBox
-
-import os
-import datetime
-import zipfile
+import os, datetime, zipfile, ctypes
 import Utils
 
-
 def backup(layer):
-    masterLayer = Utils.getLayerByName(layer.masterName)
-    (filePath, fileName) = os.path.split(masterLayer.dataProvider().dataSourceUri())
+    (filePath, fileName) = os.path.split(layer.dataProvider().dataSourceUri())
 
     filePath = Utils.processTempFilePath(filePath)
-    fileName = os.path.splitext(fileName)[0]  # Remove the file extension
+    fileName = os.path.splitext(fileName)[0] # Remove the file extension
 
     # Create a Backups folder if there isn't one, to store the zips
     bkupadd = filePath + "/Backups"
@@ -21,7 +15,7 @@ def backup(layer):
         os.makedirs(bkupadd)
 
     timeStr = datetime.datetime.now().strftime('-%Y%m%d-%H%M')
-    layer.zipName = fileName + timeStr + ".zip"  # Store this here so it can be accessed later on in UI population
+    layer.zipName = fileName + timeStr + ".zip" # Store this here so it can be accessed later on in UI population
     backupPath = os.path.join(bkupadd, layer.zipName)
 
     # Create the zip
@@ -36,5 +30,5 @@ def backup(layer):
         zf.close()
         return True
     except:
-        QMessageBox.warning(layer.window, "Error", "Problems creating archive")
+        ctypes.windll.user32.MessageBoxW(0, u"Problems creating archive", u"Error", 0x0 | 0x10)
         return False

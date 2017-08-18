@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>661</width>
+    <height>311</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLineEdit" name="masterField">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>79</y>
+     <width>421</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="maxLength">
+    <number>70</number>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>45</x>
+     <y>80</y>
+     <width>66</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Master Layer</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>605</x>
+     <y>80</y>
+     <width>46</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Lines</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="masterCount">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>80</y>
+     <width>46</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="maxLength">
+    <number>6</number>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>5</y>
+     <width>236</width>
+     <height>46</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Sedimentary or Igneous/Metamorphic</string>
+   </property>
+   <widget class="QRadioButton" name="radioButtonsedimentary">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>82</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sedimentary</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">ignSedButtonGroup</string>
+    </attribute>
+   </widget>
+   <widget class="QRadioButton" name="radioButtonigneous">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>20</y>
+      <width>141</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Igneous/Metamorphic</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">ignSedButtonGroup</string>
+    </attribute>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>150</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Destination Filename</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>50</y>
+     <width>106</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Project Save Path</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>175</y>
+     <width>111</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Temporary Layer</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="destinationField">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>130</y>
+     <width>421</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="maxLength">
+    <number>70</number>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="projectPathField">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>55</y>
+     <width>476</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="tempField">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>180</y>
+     <width>421</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="maxLength">
+    <number>70</number>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_14">
+   <property name="geometry">
+    <rect>
+     <x>25</x>
+     <y>125</y>
+     <width>86</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Destination</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3">
+   <property name="geometry">
+    <rect>
+     <x>255</x>
+     <y>5</y>
+     <width>396</width>
+     <height>46</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Data Type</string>
+   </property>
+   <widget class="QRadioButton" name="radioButtonsample">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>82</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Samples</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">dataButtonGroup</string>
+    </attribute>
+   </widget>
+   <widget class="QRadioButton" name="radioButtonage">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>20</y>
+      <width>96</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Summary Ages</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">dataButtonGroup</string>
+    </attribute>
+   </widget>
+   <widget class="QRadioButton" name="radioButtonanalysis">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>20</y>
+      <width>106</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sample Analyses</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">dataButtonGroup</string>
+    </attribute>
+   </widget>
+   <widget class="QRadioButton" name="radioButtonexcel">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>20</y>
+      <width>106</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Raw Excel Data</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">dataButtonGroup</string>
+    </attribute>
+   </widget>
+  </widget>
+  <widget class="QLineEdit" name="destinationCount">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>130</y>
+     <width>46</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="maxLength">
+    <number>6</number>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="tempCount">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>180</y>
+     <width>46</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="maxLength">
+    <number>6</number>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_18">
+   <property name="geometry">
+    <rect>
+     <x>605</x>
+     <y>130</y>
+     <width>46</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Lines</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_22">
+   <property name="geometry">
+    <rect>
+     <x>605</x>
+     <y>181</y>
+     <width>46</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Lines</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonSavePath">
+   <property name="geometry">
+    <rect>
+     <x>605</x>
+     <y>54</y>
+     <width>46</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonProceed">
+   <property name="geometry">
+    <rect>
+     <x>255</x>
+     <y>260</y>
+     <width>146</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Proceed With Merge</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="destinationFilenameField">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>155</y>
+     <width>531</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="maxLength">
+    <number>70</number>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonBackupPath">
+   <property name="geometry">
+    <rect>
+     <x>605</x>
+     <y>205</y>
+     <width>46</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_13">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>202</y>
+     <width>96</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Backup Path</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="backupPathField">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>205</y>
+     <width>476</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="maxLength">
+    <number>70</number>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="backupNameField">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>230</y>
+     <width>531</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="maxLength">
+    <number>70</number>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>25</x>
+     <y>225</y>
+     <width>86</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Backup Filename</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="samplesField">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>104</y>
+     <width>421</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="maxLength">
+    <number>70</number>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>105</y>
+     <width>71</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Samples Layer</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="samplesCount">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>105</y>
+     <width>46</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="maxLength">
+    <number>6</number>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>605</x>
+     <y>105</y>
+     <width>46</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Lines</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+   </property>
+  </widget>
+  <zorder>groupBox</zorder>
+  <zorder>masterField</zorder>
+  <zorder>label</zorder>
+  <zorder>label_5</zorder>
+  <zorder>masterCount</zorder>
+  <zorder>label_7</zorder>
+  <zorder>label_8</zorder>
+  <zorder>label_10</zorder>
+  <zorder>destinationField</zorder>
+  <zorder>projectPathField</zorder>
+  <zorder>tempField</zorder>
+  <zorder>label_14</zorder>
+  <zorder>groupBox_3</zorder>
+  <zorder>destinationCount</zorder>
+  <zorder>tempCount</zorder>
+  <zorder>label_18</zorder>
+  <zorder>label_22</zorder>
+  <zorder>pushButtonSavePath</zorder>
+  <zorder>pushButtonProceed</zorder>
+  <zorder>destinationFilenameField</zorder>
+  <zorder>pushButtonBackupPath</zorder>
+  <zorder>label_13</zorder>
+  <zorder>backupPathField</zorder>
+  <zorder>backupNameField</zorder>
+  <zorder>label_9</zorder>
+  <zorder>samplesField</zorder>
+  <zorder>label_2</zorder>
+  <zorder>samplesCount</zorder>
+  <zorder>label_6</zorder>
+ </widget>
+ <tabstops>
+  <tabstop>pushButtonSavePath</tabstop>
+  <tabstop>pushButtonBackupPath</tabstop>
+  <tabstop>projectPathField</tabstop>
+  <tabstop>tempField</tabstop>
+  <tabstop>tempCount</tabstop>
+  <tabstop>destinationCount</tabstop>
+  <tabstop>masterCount</tabstop>
+  <tabstop>radioButtonsedimentary</tabstop>
+  <tabstop>radioButtonigneous</tabstop>
+  <tabstop>radioButtonsample</tabstop>
+  <tabstop>radioButtonage</tabstop>
+  <tabstop>radioButtonanalysis</tabstop>
+  <tabstop>radioButtonexcel</tabstop>
+  <tabstop>backupPathField</tabstop>
+  <tabstop>masterField</tabstop>
+  <tabstop>backupNameField</tabstop>
+  <tabstop>destinationField</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+ <buttongroups>
+  <buttongroup name="ignSedButtonGroup"/>
+  <buttongroup name="dataButtonGroup"/>
+ </buttongroups>
+</ui>
