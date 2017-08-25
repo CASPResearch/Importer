@@ -3,6 +3,7 @@ import os, datetime, zipfile, ctypes
 import Utils
 
 def backup(layer):
+    print "backup"
     (filePath, fileName) = os.path.split(layer.dataProvider().dataSourceUri())
 
     filePath = Utils.processTempFilePath(filePath)

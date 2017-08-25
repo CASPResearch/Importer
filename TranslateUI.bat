@@ -1,1 +1,1 @@
-pyuic4 -x ImporterUI.ui -o ImporterUI.py
+pyuic4 -x PrimaryUI.ui -o PrimaryUI.py

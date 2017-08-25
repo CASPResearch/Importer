@@ -1,19 +1,19 @@
 # Set up mappings from concat variables to their intended layer names
 # Constructed in code from lithology type + table type where:
-#   lithology == igneous or sedimentary
-#   tableVariety == samples, ages, analyses, or excel
+#   lithology == ignmeta or sedimentary
+#   tableVariety == samples, ages, analyses, or raw
 
 layerNames = {
-    "igneoussample": "igneous samples",
-    "igneousage": "igneous ages",
-    "igneousanalysis": "igneous analyses",
-    "igneousexcel": "igneous raw data",
-    "igneoussampleagemerge": "igneous sample summary ages master",
-    "igneoussamplerawmerge": "igneous sample raw data master",
+    "ignmetasample": "ignmeta_samples",
+    "ignmetaage": "ignmeta_ages",
+    "ignmetaanalysis": "ignmeta_analyses",
+    "ignmetaraw": "ignmeta_raw",
+    "ignmetasampleagemerge": "ignmeta_sample_ages_merge",
+    "ignmetasamplerawmerge": "ignmeta_sample_raw_merge",
     "sedimentarysample": "sedimentary samples",
     "sedimentaryage": "sedimentary ages",
     "sedimentaryanalysis": "sedimentary analyses",
-    "sedimentaryexcel": "sedimentary raw data",
+    "sedimentaryraw": "sedimentary raw data",
     "sedimentarysampleagemerge": "sedimentary sample summary ages master",
     "sedimentarysamplerawmerge": "sedimentary sample raw data master"
 }

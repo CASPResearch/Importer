@@ -41,14 +41,16 @@ class Importer:
 
     def run(self):
         layer = self.iface.activeLayer()
+        wkb = layer.wkbType() # 1 == Point, 100 == No Geometry
 
-        if layer.type() == QgsMapLayer.VectorLayer and layer.wkbType() == QGis.WKBPoint:
+        if layer.type() == QgsMapLayer.VectorLayer and (wkb == 1 or wkb == 100):
             self.primaryDialog.run(layer)
         else:
             QMessageBox.warning(self.iface.mainWindow(), "Wrong Layer Type",
-                                "Import layer must be a Point Geometry Vector Layer")
+                                "Import layer must be a Point Geometry or No Geometry Vector Layer")
 
     def runSecondaryUI(self, master):
+        print "runsecondaryui"
         # Refresh the map view
         if self.iface.mapCanvas().isCachingEnabled():
             master.setCacheImage(None)

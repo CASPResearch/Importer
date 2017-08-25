@@ -28,18 +28,19 @@ class UIFunctions(QtGui.QDialog):
     def run(self, layer):
         self.layer = layer  # Save this so button functions can pick it up and pass it forwards
 
-        # Determine which table is being imported, out of sample, age, analysis, and excel
+        # Determine which table is being imported, out of sample, age, analysis, and raw
         if not Utils.getTableVariety(layer):
             return
 
-        # Determine the lithology category of the layer, from igneous or sedimentary
+        # Determine the lithology category of the layer, from ignmeta or sedimentary
         if not Utils.getLithologyCategory(layer):
             return
 
         # Now we know our category and our type, we can check we aren't duplicating an entry
         name = layerNames[layer.cat + layer.tableVariety]
         if Utils.checkUID(layer, name):
-            QMessageBox.warning(layer.window, "UID duplication detected", "UID already imported: %s" % layer.uidMatch)
+            QMessageBox.warning(self.iface.mainWindow(), "UID duplication detected",
+                                "UID already imported: %s" % layer.uidMatch)
             return
 
         layer.masterName = name # We're not duplicating, so now store this for future reference
@@ -55,16 +56,12 @@ class UIFunctions(QtGui.QDialog):
 
         # Create a temporary layer which is the result of merging the source and target
         # The user can check this over for mistakes before committing
-        if not Utils.mergeLayersIntoTemp(layer):
+        self.temp = Utils.mergeLayersIntoTemp(layer)
+        if not self.temp:
             return
 
         # Show that temporary layer's content table
-        temp = Utils.getLayerByName('Merged')
-        if temp:
-            self.iface.showAttributeTable(temp)
-            self.temp = temp
-        else:
-            return
+        self.iface.showAttributeTable(self.temp)
 
         # Populate the UI with appropriate data, and show it
         self.fillFields(layer)
@@ -85,14 +82,15 @@ class UIFunctions(QtGui.QDialog):
 
         # Handle destination layer
         dest = Utils.getLayerByName(layer.masterName)
-        if dest:
-            self.fillLayerRow(dest, "destination")
-        else:
+        if not dest:
             return
+
+        self.fillLayerRow(dest, "destination")
 
         # Handle the destination file name
         (path, name) = os.path.split(dest.dataProvider().dataSourceUri())
-        name = name[:name.index("|")]
+        #TODO - Safeguard against :name.index returning that it can't find the element. Breaks the script
+        name = name[:name.index("\'")]
         self.ui.destinationFilenameField.setText(name)
 
         # Handle the temporary layer
@@ -112,8 +110,8 @@ class UIFunctions(QtGui.QDialog):
         self.ui.pushButtonBackupPath.clicked.connect(self.backupPathButtonFunction)
 
     def proceedButtonFunction(self):
-        Utils.updateDestination(self.layer)
         self.handleClose()
+        Utils.updateDestination(self.layer)
 
     def savePathButtonFunction(self):
         subprocess.Popen('explorer "{0}"'.format(self.saveDir))
@@ -133,7 +131,7 @@ class UIFunctions(QtGui.QDialog):
 
     def handleClose(self):
         # Cleanup the temp layer
-        if self.temp:
+        if hasattr(self, 'temp'):
             tempID = self.temp.id()
             QgsMapLayerRegistry.instance().removeMapLayers([tempID])
 

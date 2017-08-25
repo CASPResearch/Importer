@@ -131,7 +131,7 @@
      <string notr="true">ignSedButtonGroup</string>
     </attribute>
    </widget>
-   <widget class="QRadioButton" name="radioButtonigneous">
+   <widget class="QRadioButton" name="radioButtonignmeta">
     <property name="enabled">
      <bool>false</bool>
     </property>
@@ -338,7 +338,7 @@
      <string notr="true">dataButtonGroup</string>
     </attribute>
    </widget>
-   <widget class="QRadioButton" name="radioButtonexcel">
+   <widget class="QRadioButton" name="radioButtonraw">
     <property name="enabled">
      <bool>false</bool>
     </property>
@@ -700,11 +700,11 @@
   <tabstop>destinationCount</tabstop>
   <tabstop>masterCount</tabstop>
   <tabstop>radioButtonsedimentary</tabstop>
-  <tabstop>radioButtonigneous</tabstop>
+  <tabstop>radioButtonignmeta</tabstop>
   <tabstop>radioButtonsample</tabstop>
   <tabstop>radioButtonage</tabstop>
   <tabstop>radioButtonanalysis</tabstop>
-  <tabstop>radioButtonexcel</tabstop>
+  <tabstop>radioButtonraw</tabstop>
   <tabstop>backupPathField</tabstop>
   <tabstop>masterField</tabstop>
   <tabstop>backupNameField</tabstop>
