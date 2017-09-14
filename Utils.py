@@ -2,6 +2,7 @@ from qgis.core import *
 from processing.core.Processing import Processing
 from LayerNames import layerNames
 from PyQt4.QtGui import QMessageBox
+from pyspatialite import dbapi2 as db
 
 import CheckLists
 import processing.tools
@@ -202,8 +203,87 @@ def getLayerFilename(layer, ext):
 
     return name
 
-def mergeSQLs(layer1, layer2):
-    print "mergesqls"
+def generateTempMergeSQL(layer1, layer2):
+    # Duplicate target layer
+    str = "create table temp as select * from {}".format(finalLayer)
+    # Amend core query to perform insert
+    # Run
+    # Show temp layer in QGIS
+    # Return temp layer
+
+
+    # First we have to save our layer 2 as a
+    tempFile = 'C:/Temp/myCSV.csv'
+    QgsVectorFileWriter.writeAsVectorFormat(layer2, tempFile, "utf-8", None, "CSV")
+
+
     Processing.initialize()
     processing.runandload("qgis:joinattributestable", [layer1], [layer2], "sampleid", "sampleid", None)
     return getLayerByName('Merged')
+
+def getDatabaseConnection(layer):
+    myPath = getLayerPath(layer, True)
+    samplePath = getLayerPath(layer.sampleLayer, True)
+    finalPath = getLayerPath(layer.finalLayer, True)
+
+    # Check that I'm one of the two valid sources for this operation
+    # And that the name fetch is working right
+    myName = getLayerFilename(layer, False)
+    if myName != "ignmeta_ages" and myName != "ignmeta_raw":
+        print "Bad name, returning"
+        return
+
+    sampleName = getLayerFilename(layer.sampleLayer, False)
+    finalName = getLayerFilename(layer.finalLayer, False)
+
+    # Create a database connection
+    conn = db.connect(myPath)
+    if not conn:
+        print "Can't open db, returning"
+        return
+
+    cur = conn.cursor()
+
+    # Attach the two extra databases to the link so they can be addressed
+    cur.execute('attach database "{}" as "{}"'.format(samplePath, sampleName))
+    cur.execute('attach database "{}" as "{}"'.format(finalPath, finalName))
+
+    queryCore = buildQueryCore(layer, myName, sampleName, finalName)
+
+    return conn, cur, queryCore
+
+def buildQueryCore(layer, myName, sampleName, finalName):
+    queryString = ""
+    if myName == "ignmeta_ages":
+        queryString = "select {}.ogc_fid, {}.sampleid, ".format(myName, myName)
+    elif myName == "ignmeta_raw":
+        queryString = "select {}.ogc_fid, samplealiquotid, {}.sampleid, ".format(myName, myName)
+
+    # Create a string list of the fields we need from the source layer
+    for field in layer.fields():
+        name = field.name()
+        if name != "ogc_fid" and name != "sampleid" and name != "geometry" and name != "samplealiquotid":
+            queryString = queryString + name + ", "
+
+    # Append appropriate fields from the sampleLayer
+    for field in layer.sampleLayer.fields():
+        name = field.name()
+        if name != "ogc_fid" and name != "sampleid" and name != "geometry" and name != "samplealiquotid":
+            if name == "longitude" or name == "latitude":
+                name = "cast({} as double) as {}".format(name, name)
+
+            if name == "sampleno" and myName == "ignmeta_raw":
+                continue
+
+            queryString = queryString + name + ", "
+
+    # Append the instructions for limiting the selection to relevent data
+    queryString = (queryString +
+                   "{}.GEOMETRY "
+                   "from {} join {} "
+                   "on ({}.sampleid={}.sampleid) "
+                   "where {}.sampleid IN (select sampleid from {}) "
+                   "and {}.sampleid not in (select sampleid from {})"
+    ).format(sampleName, myName, sampleName, myName, sampleName, myName, sampleName, myName, finalName)
+
+    return queryString

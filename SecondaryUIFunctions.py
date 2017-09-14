@@ -1,6 +1,6 @@
 from PrimaryUIFunctions import UIFunctions
 from SecondaryUI import Ui_Dialog
-from PyQt4 import QtGui, QtSql
+from PyQt4 import QtGui
 from pyspatialite import dbapi2 as db
 from Backup import backup
 
@@ -22,7 +22,6 @@ class UIFunctions2(UIFunctions):
         self.ui.setupUi(self)
 
     def run(self, layer):
-        print "run function in secondary"
         # First, check if we really want to be run
         layer.finalLayer, layer.sampleLayer = Utils.mergeNeeded(layer)
         if not layer.finalLayer: # sampleLayer is also False, but we need only check one
@@ -34,13 +33,14 @@ class UIFunctions2(UIFunctions):
         if not backup(layer.finalLayer):
             return
 
-        print "Backup complete"
+        # Load a database connection and generate the core of our SQL query
+        self.conn, self.cur, self.queryCore = Utils.getDatabaseConnection(layer)
 
         # Create a temporary layer which is the result of merging the source and target
         # The user can check this over for mistakes before committing
-        #self.temp = Utils.mergeSQLs(layer, layer.sampleLayer)
-        #if not self.temp:
-            #return
+        self.temp = Utils.generateTempMergeSQL(layer, layer.sampleLayer)
+        if not self.temp:
+            return
 
         # Show that temporary layer's content table
         #self.iface.showAttributeTable(self.temp)
@@ -187,5 +187,4 @@ class UIFunctions2(UIFunctions):
         # Refresh the map view
         if self.iface.mapCanvas().isCachingEnabled():
             layer.finalLayer.setCacheImage(None)
-        else:
-            self.iface.mapCanvas().refresh()
+        self.iface.mapCanvas().refresh()
